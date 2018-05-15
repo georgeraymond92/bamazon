@@ -1,0 +1,23 @@
+{
+  "name": "bamazon_modules",
+  "version": "1.0.0",
+  "description": "NA",
+  "main": "logic.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/georgeraymond92/bamazon.git"
+  },
+  "author": "George Raymond",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/georgeraymond92/bamazon/issues"
+  },
+  "homepage": "https://github.com/georgeraymond92/bamazon#readme",
+  "dependencies": {
+    "inquirer": "^5.2.0",
+    "mysql": "^2.15.0"
+  }
+}
