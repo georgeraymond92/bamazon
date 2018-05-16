@@ -25,6 +25,7 @@ var connection = mysql.createConnection({
     connection.query("SELECT * FROM products", function(err, res) {
       if (err) throw err;
       // Log all results of the SELECT statement
+    //   console.log(res);
       for (i = 0; i<res.length;i++){
         console.log("\nItem ID#: " + res[i].id);
         console.log("Product: " + res[i].product_name);
@@ -35,4 +36,5 @@ var connection = mysql.createConnection({
       
       connection.end();
     });
-  }
+
+}
