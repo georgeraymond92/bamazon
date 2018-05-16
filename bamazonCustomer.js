@@ -38,3 +38,19 @@ var connection = mysql.createConnection({
     });
 
 }
+
+inquirer.prompt([
+  {
+    type: "input",
+    name: "userId",
+    message: "what's the product ID?"
+  
+},
+{
+  type: "input",
+  name: "unit",
+  message: "How many units would you like to buy?"
+},
+  
+])
+console.log("inquirer")
