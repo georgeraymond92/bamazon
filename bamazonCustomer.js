@@ -26,46 +26,31 @@ connection.connect(function(err) {
 
 function purchaseItem() {
   console.log("makeing your purchase\n");
+  console.log("stock: " + getStock());
   var query = connection.query(
-    "UPDATE products SET ? WHERE ?",
-    [
-      {
-        stock_quantity: num_purchased
-      },
-      {
-        id: purchaseId
-      }
-    ],
+    "UPDATE products SET stock_quantity = stock_quantity - " + num_purchased + " WHERE id = " + purchaseId + " AND stock_quantity - " + num_purchased + " >= 0",
     function(err, res) {
+      if (res.affectedRows === 0){
+        console.log("Not enough items in stock")
+      }else{
       console.log(res.affectedRows + " products updated!\n");
+      }
       
     }
   );
   console.log(query.sql);
+  
 }
 
-// function deleteProduct() {
-//   console.log("Deleting all strawberry icecream...\n");
-//   connection.query(
-//     "DELETE FROM products WHERE ?",
-//     {
-//       flavor: "strawberry"
-//     },
-//     function(err, res) {
-//       console.log(res.affectedRows + " products deleted!\n");
-//       // Call readProducts AFTER the DELETE completes
-//       readProducts();
-//     }
-//   );
-// }
 
-
-// function setStock(){
-//   connection.query("SELECT * FROM products", function(err, res) {
-//     if (err) throw err;
-//     stock = res[purchaseId-1].stock_quantity;
-//   })
-// }
+function getStock(){
+  connection.query("SELECT * FROM products", function(err, res) {
+    if (err) throw err;
+    stock = res[purchaseId-1].stock_quantity;
+    console.log(stock);
+    return stock;
+  })
+}
 
 
 
@@ -105,10 +90,13 @@ inquirer.prompt([
   // console.log(inquirerResponse.userId);
   // console.log(inquirerResponse.unit);
   purchaseId = inquirerResponse.userId;
-  num_purchased = inquirerResponse.unit;   
+  num_purchased = inquirerResponse.unit;
+  getStock();  
+  console.log(stock); 
   purchaseItem();
   readProducts();
   connection.end();
 })
+
 
 
